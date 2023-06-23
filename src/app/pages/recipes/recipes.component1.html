@@ -1,0 +1,33 @@
+<div class="flex flex-col items-center">
+    <div class="font-bold text-4xl">Recipe List</div>
+    <br>
+
+    <div *ngFor="let recipe of recipes">
+        <img src="{{recipe.url}}" alt="desc">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div>Title: {{recipe.title}}</div>
+            <div>Recipe Id: {{recipe.id}}</div>
+            <div>Calories: {{recipe.calories}} Cusine: {{recipe.cusine}}</div>
+            <div>{{recipe.url}}</div>
+            <div><a class="font-bold text-blue-900"
+                routerLink="/recipe-details/{{recipe.id}}">Get More Info</a></div>
+            <hr class="border-t border-pink-500 my-4">
+            <div>Reviews:</div>
+            <div *ngFor="let review of recipe.reviews">
+                <hr class="border-t">
+                <ul>
+                    <li>
+                        By: {{review.username}}  Rating: {{review.rating}}
+                    </li>
+                    <li>
+                        Comments: {{review.comment}} 
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <br>
+    </div>
+
+</div>
+

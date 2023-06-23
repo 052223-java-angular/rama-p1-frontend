@@ -21,4 +21,14 @@ export class AuthServiceService {
     return this.http.post<Auth>(`${this.baseUrl}/auth/login`, payload);
   }
 
+  setSessionObj(user: any) : void {
+    sessionStorage.setItem("user", JSON.stringify(user));
+  }
+
+  getSessionObj() : any {
+    return JSON.parse(JSON.stringify(sessionStorage.getItem("user")));
+  }
+
+
+
 }
