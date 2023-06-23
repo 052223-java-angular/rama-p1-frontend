@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import { LoginPayload } from 'src/app/models/login-payload';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import {ToastrService} from 'ngx-toastr';
+import {Auth} from 'src/app/models/auth';
 
 
 @Component({
@@ -13,6 +14,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  User!: Auth;
 
   /**
    * Initializes the register form with empty fields and validators.
@@ -49,7 +51,17 @@ export class LoginComponent {
         next: value => {
           // Handle the success response
           // TODO: Add code for handling success response
-          this.router.navigate(['/about']);
+          //console.log("username in login " + value.username );
+          //console.log("token in login " + value.token);
+          //save in storage
+          this.authService.setSessionObj(value);
+
+          const jsonData = this.authService.getSessionObj();
+          
+          //const parsedData = JSON.parse(jsonData);
+          //console.log(parsedData.id)
+
+          this.router.navigate(['/recipes']);
         },
         error: error => {
           // Handle the error response

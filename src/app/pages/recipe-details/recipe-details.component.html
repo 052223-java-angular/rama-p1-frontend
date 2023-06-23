@@ -1,0 +1,97 @@
+
+<div class="px-36">
+    <div class="mb-10 flex flex-col">
+        <p class="mt-6 mb-6">Recipe Details Page</p>
+        <div >Title:{{recipeDetail.label}}</div>
+        <div><a class="font-bold text-blue-900" href="{{recipeDetail.shareAs}}">Check for Nutirional And Other Info</a></div>
+        <div class="mt-4">Reviews:</div>
+        <div class="bg-slate-300 rounded shadow px-6" *ngFor="let review of reviewList">
+            <div class="mt-2">Rating:{{review.rating}}</div>
+            <div class="mt-2">Comment:{{review.comment}}</div>
+            <div class="mt-2">Reviewed By:{{review.username}}</div>
+            <div class="mt-2">Edit Comment:</div>
+            <textarea [(ngModel)]="review.comment" placeholder="review.comment" class="border border-gray-300 p-2 rounded resize-y"></textarea>
+            <br>
+            <div>Edit Rating:</div>
+            <input type="number" [(ngModel)]="review.rating" class="border border-gray-300 p-2 rounded" placeholder="review.rating">
+            <div class="mt-4"></div>
+
+            <div class="flex space-x-4">
+                <button class="px-4 py-2 bg-blue-500 text-white rounded" (click)="editReview(review)">Edit</button>
+                <button class="px-4 py-2 bg-red-500 text-white rounded" (click)="deleteReview(review)">Delete</button>
+            </div>
+            <div class="mt-6"></div>
+           
+        </div>
+        <!-- <div class='p-10' [innerHTML]="recipeDetail.instructions"></div> -->
+     </div>
+</div>
+
+<!-- <div class="flex flex-col">
+    <p class="mt-6 mb-6">Recipe Details Page</p>
+    <div>Title: {{recipeDetail.label}}</div>
+    <div><a class="font-bold text-blue-900" href="{{recipeDetail.shareAs}}">Check for Nutritional And Other Info</a></div>
+    <div class="mt-4">Reviews:</div>
+    <div class="bg-white rounded shadow p-4" *ngFor="let review of reviewList; let i = index">
+      <div *ngIf="!editMode[i]">
+        Comment: {{review.comment}}
+      </div>
+      <div *ngIf="!editMode[i]">
+        Rating: {{review.rating}}
+      </div>
+      <div *ngIf="!editMode[i]">
+        Reviewed By: {{review.username}}
+      </div>
+  
+      <div *ngIf="editMode[i]">
+        <input type="text" [(ngModel)]="reviewList[i].comment">
+      </div>
+      <div *ngIf="editMode[i]">
+        <input type="number" [(ngModel)]="reviewList[i].rating">
+      </div>
+  
+      <div class="flex space-x-4">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded" (click)="toggleEditMode(i)">
+          {{ editMode[i] ? 'Save' : 'Edit' }}
+        </button>
+        <button class="px-4 py-2 bg-red-500 text-white rounded" (click)="deleteReview()">Delete</button>
+      </div>
+    </div>
+  </div>
+   -->
+
+<!-- <div class="flex flex-col">
+    <p class="mt-6 mb-6">Recipe Details Page</p>
+    <div>Title: {{recipeDetail.label}}</div>
+    <div><a class="font-bold text-blue-900" href="{{recipeDetail.shareAs}}">Check for Nutritional And Other Info</a></div>
+    <div class="mt-4">Reviews:</div>
+    <div class="bg-white rounded shadow p-4" *ngFor="let review of reviewList">
+        <div *ngIf="!review.editMode[i]">
+            Comment: {{review.comment}}
+        </div>
+        <div *ngIf="!review.editMode[i]">
+            Rating: {{review.rating}}
+        </div>
+        <div *ngIf="!review.editMode[i]">
+            Reviewed By: {{review.username}}
+        </div>
+
+        <div *ngIf="review.editMode[i]">
+            <input type="text" [(ngModel)]="review.comment">
+        </div>
+        <div *ngIf="review.editMode[i]">
+            <input type="number" [(ngModel)]="review.rating">
+        </div>
+
+        <div class="flex space-x-4">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded" (click)="toggleEditMode(review)">
+                {{ review.editMode[i] ? 'Save' : 'Edit' }}
+            </button>
+            <button class="px-4 py-2 bg-red-500 text-white rounded" (click)="deleteReview(review)">Delete</button>
+        </div>
+    </div>
+</div> -->
+
+
+
+
