@@ -38,48 +38,48 @@ export class RecipeServiceService {
     return this.http.get<any>(`${externalApi}`);
   }
 
-  getReviewsByRid(id: string) {
-    console.log("id in getReviewsbyRid " + id);
-    //let test:string = 'http://localhost:8080/cookbook/api/review/byrid/2dbeaf3e96adcdcbcb3a4445ec9729d9';
-    let test1:string = `${this.baseUrl}/review/byrid/${id}`;
-    console.log("test1 " + test1);
-    //return this.http.get<any[]>(`${this.baseUrl}/review/byrid/${id}`);
-    return this.http.get<any[]>(test1);
-  }
+  // getReviewsByRid(id: string) {
+  //   console.log("id in getReviewsbyRid " + id);
+  //   //let test:string = 'http://localhost:8080/cookbook/api/review/byrid/2dbeaf3e96adcdcbcb3a4445ec9729d9';
+  //   let test1:string = `${this.baseUrl}/review/byrid/${id}`;
+  //   console.log("test1 " + test1);
+  //   //return this.http.get<any[]>(`${this.baseUrl}/review/byrid/${id}`);
+  //   return this.http.get<any[]>(test1);
+  // }
 
   searchByCusine(cusine: string){
     return this.http.get<any[]>(`${this.baseUrl}/recipe/bycusine/${cusine}`);
   }
 
-  editReview( payload: { comments: string; rate: Number, recipe_id: string; }){
-    const url:string = `${this.baseUrl}/review/create`;
+  // editReview( payload: { comments: string; rate: Number, recipe_id: string; }){
+  //   const url:string = `${this.baseUrl}/review/create`;
   
-    const jsonData = this.authService.getSessionObj();
-    const parsedData = JSON.parse(jsonData);
+  //   const jsonData = this.authService.getSessionObj();
+  //   const parsedData = JSON.parse(jsonData);
 
-    console.log(parsedData.token);
-    let token:string = parsedData.token;
-    //create a payload and send it to client
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'auth-token': token
-      })
-    };
+  //   console.log(parsedData.token);
+  //   let token:string = parsedData.token;
+  //   //create a payload and send it to client
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'auth-token': token
+  //     })
+  //   };
 
 
-    this.http.post(url, payload, httpOptions).subscribe(
-      response => {
-        // Handle the response
-      },
-      error => {
-        // Handle errors
-        console.log(error);
-        console.log("err");
-      }
-    );
+  //   this.http.post(url, payload, httpOptions).subscribe(
+  //     response => {
+  //       // Handle the response
+  //     },
+  //     error => {
+  //       // Handle errors
+  //       console.log(error);
+  //       console.log("err");
+  //     }
+  //   );
 
-    //this.http.post<any>(`${this.baseUrl}/review/create`);
-  }
+  //   //this.http.post<any>(`${this.baseUrl}/review/create`);
+  // }
 
   
 

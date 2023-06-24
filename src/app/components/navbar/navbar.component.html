@@ -1,13 +1,25 @@
-<nav class=" bg-yellow-600 flex justify-between px-20 py-10 shadow-xl items-center">
-    <ul class="bg-yellow-700 px-5 py-2 text-white rounded-md shadow-2xl font-bold text-4xl">
+<nav class=" bg-slate-200 flex justify-between px-20 py-10 shadow-xl items-center">
+    <ul class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-2xl font-bold text-4xl">
         <h1 class="font-bold text-4xl items-center">COOK-BOOK</h1>
     </ul>
     <ul class="flex gap-5 items-center">
         <li class="hover:underline hover:underline-offset-4"><a routerLink="/">Home</a></li>
-        <button routerLink="/recipes" class="bg-green-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Recipes</button>
-        <button routerLink="/search" class="bg-green-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Search</button>
-        <button routerLink="/login" class="bg-blue-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Login</button>
-        <button routerLink="/register" class="bg-green-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Sign up</button>
+        <button routerLink="/recipes" class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Recipes</button>
+        <button routerLink="/myfavorites" class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">MyFav</button>
+        <button routerLink="/search" class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Search</button>
+        <!-- <button routerLink="/login" class="bg-blue-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Login</button> -->
+        <button routerLink="/register" class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Sign up</button>
+        <ul *ngIf="authService.isLoggedIn(); else notLoggedIn">
+            <li><button class="text-slate-800 rounded-md px-4 py-2 transition duration-300 ease-in-out hover:bg-blue-500 hover:text-white" (click)="logout()">Logout</button></li>
+            <span>{{authService.getUserName()}}</span>
+        </ul>
+        <ng-template #notLoggedIn>
+        <ul class="navbar-edge justify-end">
+            <li><a routerLink="/login">Login</a></li>
+        </ul>
+        </ng-template>       
+
+      
     </ul>
       
     

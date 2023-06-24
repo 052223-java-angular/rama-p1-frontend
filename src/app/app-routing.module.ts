@@ -8,6 +8,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RecipesComponent } from './pages/recipes/recipes.component';
 import { RecipeDetailsComponent } from './pages/recipe-details/recipe-details.component';
 import { SearchComponent } from './pages/search/search.component';
+import { MyfavoritesComponent } from './pages/myfavorites/myfavorites.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Route for the register page
   { path: 'recipes', component: RecipesComponent }, // Route for the register page
   { path: 'recipe-details/:id', component: RecipeDetailsComponent }, // Route for the register page
+  { path: 'myfavorites', component: MyfavoritesComponent }, // Route for the register page
   { path: 'search', component: SearchComponent }, // Route for the register page
   { path: '**', component:NotFoundComponent } // Route for handling not-found pages
  ] 

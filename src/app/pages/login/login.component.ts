@@ -35,8 +35,20 @@ export class LoginComponent {
   submitForm(): void {
     if (this.loginForm.invalid) {
       console.log('This form is invalid');
+      const username = this.loginForm.controls['username'].value;
+      if(username.length === 0){
+        this.loginForm.controls['username'].markAsTouched;
+      }
+
+      const password = this.loginForm.controls['password'].value;
+      if(password.length === 0){
+        this.loginForm.controls['password'].markAsTouched;
+      }
+
+      this.loginForm.reset();
       return;
     }
+    
     console.log(this.loginForm.value);
     
     // The payload to be sent to the backend API
@@ -66,7 +78,7 @@ export class LoginComponent {
         error: error => {
           // Handle the error response
           // TODO: Add code for handling error response
-          this.toastr.error(error.error.message);
+          this.toastr.error(error.message);
           console.log(error.error.message);
         }
     });

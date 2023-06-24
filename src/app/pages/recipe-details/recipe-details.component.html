@@ -1,11 +1,78 @@
+<div class="mt-10 max-w-sm mx-auto bg-white shadow-md rounded px-8 py-6">
+  <h2 class="text-xl font-bold mb-4">{{recipeDetail.label}}</h2>
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="externalLink">  <div><a class="font-bold text-blue-900" href="{{recipeDetail.shareAs}}">Check for Nutirional And Other Info</a></div></label>
+  </div>
+  
+  <div  *ngIf="review">
+    <div class="mb-4"class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="comment">Comments:</label>
+      <textarea  [(ngModel)]="review.comment" placeholder="{{review.comment}}" class="  border-gray-300 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="textarea"  rows="4"></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="input1">Ratings:</label>
+      <input type="number" [(ngModel)]="review.rating" class=" border-gray-300 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1"  placeholder="review.rating">
+    </div>
+    <div class="flex items-center justify-between mb-4">
+      <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" (click)="editReview(review)" type="button">Edit</button>
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" (click)="deleteReview(review)" type="button">Delete</button>
+    </div>
+  </div>
 
-<div class="px-36">
+  <div *ngIf="review === null">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="comment">Comments:</label>
+    <textarea  id="comment" [(ngModel)]="newReview.comment"  placeholder="Enter Your Comments" class="border-gray-300 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="textarea"  rows="4"></textarea>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="rating">Ratings:</label>
+      <input id="rating" [(ngModel)]="newReview.rating" class="border-gray-300 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="input1" type="number" placeholder="Enter Your Rating" min="1" max="5" required>
+    </div>
+    <div class="flex items-center justify-between mb-4">
+      <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" (click)="addReview()">Add</button>
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"  type="button">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center">
+  <div class="w-full max-w-lg">
+    <div class="bg-white shadow-md rounded-lg p-4">
+      <table class="w-full divide-y divide-gray-200 border-separate">
+        <thead>
+          <tr>
+            <th class="px-6 py-3 bg-gray-100 text-left text-lg font-black text-black uppercase tracking-wider ">Rating</th>
+            <th class="px-6 py-3 bg-gray-100 text-left text-lg font-bold text-black uppercase tracking-wider">Comment</th>
+            <th class="px-6 py-3 bg-gray-100 text-left text-lg font-bold text-black uppercase tracking-wider">Author</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <!-- Replace the following rows with your data loop or data binding logic -->
+          <tr *ngFor="let review of reviewList" class="bg-gray-300">
+            <td class="px-6 py-4 whitespace-nowrap">{{review.rating}}</td>
+            <td class="px-6 py-4 whitespace-wrap">
+              <div class="overflow-auto">
+                <span class="whitespace-wrap">{{ review.comment }}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">{{review.username}}</td>
+          </tr>
+         
+          <!-- End of data loop or data binding logic -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div class="px-36">
     <div class="mb-10 flex flex-col">
         <p class="mt-6 mb-6">Recipe Details Page</p>
         <div >Title:{{recipeDetail.label}}</div>
         <div><a class="font-bold text-blue-900" href="{{recipeDetail.shareAs}}">Check for Nutirional And Other Info</a></div>
         <div class="mt-4">Reviews:</div>
-        <div class="bg-slate-300 rounded shadow px-6" *ngFor="let review of reviewList">
+        <div  class="bg-slate-300 rounded shadow px-6" *ngFor="let review of reviewList">
             <div class="mt-2">Rating:{{review.rating}}</div>
             <div class="mt-2">Comment:{{review.comment}}</div>
             <div class="mt-2">Reviewed By:{{review.username}}</div>
@@ -22,10 +89,10 @@
             </div>
             <div class="mt-6"></div>
            
-        </div>
-        <!-- <div class='p-10' [innerHTML]="recipeDetail.instructions"></div> -->
+          </div >
+       
      </div>
-</div>
+</div> -->
 
 <!-- <div class="flex flex-col">
     <p class="mt-6 mb-6">Recipe Details Page</p>
