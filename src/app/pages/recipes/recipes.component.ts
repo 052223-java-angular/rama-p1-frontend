@@ -4,6 +4,7 @@ import { RegisterPayload } from 'src/app/models/register-payload';
 import { RecipeServiceService } from 'src/app/services/recipe-service.service';
 import {ToastrService} from 'ngx-toastr';
 import {Recipe} from 'src/app/models/recipe';
+import {Review} from 'src/app/models/review';
 
 
 @Component({
@@ -14,6 +15,7 @@ import {Recipe} from 'src/app/models/recipe';
 export class RecipesComponent implements OnInit {
 
   recipes: Recipe[] = [];
+  reviews: Review[] = [];
   /**
    * Initializes the register form with empty fields and validators.
    */
@@ -37,10 +39,5 @@ export class RecipesComponent implements OnInit {
       }
     });
   }
-
-
-
-   
-
 
 }

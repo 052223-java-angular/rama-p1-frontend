@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center">
+<div class="mt-10 flex flex-col items-center">
     <div class="font-bold text-4xl">Recipe List</div>
     <br>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -7,7 +7,7 @@
           <img class="w-full mb-4" [src]="recipe.url" alt="{{ recipe.title }}">
           <h5 class="text-lg font-semibold">{{ recipe.title }}</h5>
           <p>Cusine:{{ recipe.cusine }} Calories{{recipe.calories}}</p>
-          <div><a class="font-bold text-blue-900" routerLink="/recipe-details/{{recipe.id}}">Get More Info</a> </div>
+          <div><a class="font-bold text-blue-900" routerLink="/recipe-details/{{recipe.id}}">Get More Info...</a> </div>
        
         </div>
       </div>

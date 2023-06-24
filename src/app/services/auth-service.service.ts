@@ -10,14 +10,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthServiceService {
   baseUrl = 'http://localhost:8080/cookbook/api';
+  loggedIn: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    const storedLoggedIn = localStorage.getItem('isLoggedIn');
+    this.loggedIn = !!storedLoggedIn && storedLoggedIn === 'true';
+   }
 
   register(payload: RegisterPayload): Observable<Auth> {
+    //this.loggedIn = false;
     return this.http.post<Auth>(`${this.baseUrl}/auth/register`, payload);
   }
 
   login(payload: LoginPayload): Observable<Auth> {
+    //this.loggedIn = true;
     return this.http.post<Auth>(`${this.baseUrl}/auth/login`, payload);
   }
 
@@ -27,6 +33,21 @@ export class AuthServiceService {
 
   getSessionObj() : any {
     return JSON.parse(JSON.stringify(sessionStorage.getItem("user")));
+  }
+
+  isLoggedIn(): boolean {
+    return this.loggedIn;
+  }
+
+  setLoggedIn(value: boolean) {
+    this.loggedIn = value;
+  }
+
+  getUserName(): any {
+    const jsonData = this.getSessionObj();
+    const parsedData = JSON.parse(jsonData);
+    return parsedData.username;
+    //console.log(parsedData.id)
   }
 
 

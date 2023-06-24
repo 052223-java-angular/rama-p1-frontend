@@ -4,6 +4,8 @@ import { Recipe } from 'src/app/models/recipe';
 import { RecipeDetail } from 'src/app/models/recipeDetail';
 import { Review } from 'src/app/models/review';
 import { RecipeServiceService } from 'src/app/services/recipe-service.service';
+import { ReviewServiceService } from 'src/app/services/review-service.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -20,9 +22,19 @@ export class RecipeDetailsComponent implements OnInit{
   reviewList!: Review[];
   recipeList!: Recipe[];
   editMode!: boolean[];
+  review: Review | null | undefined;
+
+  newReview: Review = {
+    rating: 0, comment: '',
+    id: '',
+    username: '',
+    rid: ''
+  };
   
 
-  constructor(private recipeService: RecipeServiceService, private route: ActivatedRoute, 
+  constructor(private recipeService: RecipeServiceService, 
+    private reviewService: ReviewServiceService, 
+    private route: ActivatedRoute, private authService: AuthServiceService,
     private router:Router, private toastr: ToastrService ){
       this.editMode = [];
     }
@@ -31,15 +43,13 @@ export class RecipeDetailsComponent implements OnInit{
     
     this.route.params.subscribe(params => {
       this.recipeId = params['id'];
-      console.log("on constructor init id is " + this.recipeId);
+      //console.log("on constructor init id is " + this.recipeId);
     });
 
-
-
-     // Call the authentication service to register the user
+     // Call the recipe service to getinfo from external api 
      this.recipeService.getRecipesById(this.recipeId).subscribe({
       next: recipeDetail => {
-        //console.log("recipe " + recipeDetail.recipe.label);
+        console.log("recipe " + recipeDetail.recipe.label);
         this.recipeDetail = recipeDetail.recipe;
       },
       error: error => {
@@ -50,9 +60,14 @@ export class RecipeDetailsComponent implements OnInit{
       }
     });
 
-    this.recipeService.getReviewsByRid(this.recipeId).subscribe({
+    this.reviewService.getReviewsByRid(this.recipeId).subscribe({
       next: rL => {
         // Handle the success response
+        const username:string = this.authService.getUserName();
+        const review1 = this.reviewService.findReviewByUsername(rL, username);
+        console.log(review1);
+        this.review = review1;
+        console.log(this.review);
         this.reviewList = rL;
       },
       error: error => {
@@ -78,21 +93,46 @@ export class RecipeDetailsComponent implements OnInit{
       "rate": rate, 
       "recipe_id": recipe_id 
     };
-     // Call the authentication service to register the user
-     this.recipeService.editReview(payload);
+   
+     this.reviewService.editReview(payload);
      //this.router.navigate(['/recipes']);
-     this.router.navigate(['/recipe-details', recipe_id]);
-     
+     location.reload();
+     //this.router.navigate(['/recipe-details', recipe_id]);
      
   }
 
   deleteReview(review: Review) {
     // Handle the delete functionality for the selected review
     console.log('Delete review:', review);
+    this.reviewService.deleteReview(this.recipeId);
+    location.reload();
+    //this.router.navigate(['/recipe-details', this.recipeId]);
+
   }
 
-  toggleEditMode(index: number) {
-    this.editMode[index] = !this.editMode[index];
+  addReview(): void {
+    // Logic to process the newReview object
+    // e.g., send it to a service for further processing
+
+    const rate = this.newReview.rating;
+    const comment = this.newReview.comment;
+    const username = this.authService.getUserName();
+
+    // Log the values (replace with your desired logic)
+    console.log('Rating:', rate);
+    console.log('Comment:', comment);
+
+    const payload = {
+      "comments": comment,
+      "rate": rate, 
+      "recipe_id": this.recipeId,
+    };
+
+    this.reviewService.editReview(payload);
+     //this.router.navigate(['/recipes']);
+     this.router.navigate(['/recipe-details', this.recipeId]);
+
   }
+
 
 }
