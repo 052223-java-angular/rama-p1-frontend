@@ -1,0 +1,83 @@
+<hr class="border-t border-pink-500 my-4">
+
+<div  class="flex flex-col items-center">
+    <p class="m-10">Search By Calorie Range:</p>
+    <input type="number" [(ngModel)]="searchText" min="0" max="1000" placeholder="Enter Lower Range">
+    <input type="number" [(ngModel)]="searchText2" min="0" max="100" placeholder="Enter Upper Range">
+   
+    
+    <div class="flex flex-col mt-10">
+            <button class="mt-5" (click)="searchByRange()" 
+            class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md 
+            hover:bg-blue-600 focus:outline-none focus:ring-2 
+            focus:ring-blue-500 focus:ring-offset-2">Search</button> 
+    </div>
+</div>
+
+<hr class="border-t border-pink-500 my-4">
+<div  class="flex flex-col items-center">
+    <hr class="border-t border-pink-500 my-4">
+    <p class="m-10">Search By Id:</p>
+    <input type="text" [(ngModel)]="searchTextid" placeholder="Enter search text">
+    
+    <div class="flex flex-col mt-10">
+            <button class="mt-5" (click)="searchById()" 
+            class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md 
+            hover:bg-blue-600 focus:outline-none focus:ring-2 
+            focus:ring-blue-500 focus:ring-offset-2">Search</button> 
+    </div>
+</div>
+
+
+
+<div class="flex flex-col items-center">
+    <div class="mt-4 font-bold text-4xl">Search Results</div>
+    <br>
+
+    <div *ngFor="let recipe of recipes">
+        <img src="{{recipe.url}}" alt="desc">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div>Title: {{recipe.title}}</div>
+            <div>Recipe Id: {{recipe.id}}</div>
+            <div>Calories: {{recipe.calories}} Cusine: {{recipe.cusine}}</div>
+            <div>{{recipe.url}}</div>
+            <div><a class="font-bold text-blue-900"
+                routerLink="/recipe-details/{{recipe.id}}">Get More Info</a></div>
+            <hr class="border-t border-pink-500 my-4">
+            <div>Reviews:</div>
+            <div *ngFor="let review of recipe.reviews">
+                <hr class="border-t">
+                <ul>
+                    <li>
+                        By: {{review.username}}  Rating: {{review.rating}}
+                    </li>
+                    <li>
+                        Comments: {{review.comment}} 
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <br>
+    </div>
+
+ </div>
+
+ 
+ <hr class="border-t border-pink-500 my-4">
+<div class="flex flex-col items-center">
+
+ <div *ngIf="searchTextid">
+    
+    <div>Results For Search By Id{{recipeDetail.id}}: </div>
+    <div>RECIPE NAME: {{recipeDetail.label}}</div>
+    <div><a  class="mb-4 font-bold text-blue-900" href="{{recipeDetail.shareAs}}">Check For Nutirional And Other Info</a></div>
+    <br>
+ </div>
+</div>
+
+
+
+
+
+
