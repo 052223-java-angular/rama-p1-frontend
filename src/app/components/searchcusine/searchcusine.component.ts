@@ -16,10 +16,10 @@ import { RecipeDetail } from 'src/app/models/recipeDetail';
 export class SearchcusineComponent  {
 
 
-  dropdownOptions: string[] = ['soup', 'salad', 'Option 3'];
+  dropdownOptions: string[] = ['soup', 'salad', 'desert'];
   selectedOption!: string;
-  searchText!: string;
-  searchText2!: string;
+  searchText!: number;
+  searchText2!: number;
   searchTextid!: string;
   recipes: Recipe[] = [];
   recipe: Recipe | undefined;
@@ -40,7 +40,6 @@ export class SearchcusineComponent  {
           // Handle the success response
           // TODO: Add code for handling success response
           this.recipes = recipes;
-          
         },
         error: error => {
           // Handle the error response
@@ -57,26 +56,22 @@ export class SearchcusineComponent  {
       console.log('Search Text:', this.searchText);
       console.log('Search Text:', this.searchText2);
 
-      //  // The payload to be sent to the backend API
-      // const payload: CusinePayload = {
-      //   lowerRange: this.searchText,
-      //   upperRange: this.searchText2,
-      // };
-
-      // this.recipeService.searchByRange(payload).subscribe({
-      //   next: recipes => {
-      //     // Handle the success response
-      //     // TODO: Add code for handling success response
-      //     //this.recipes = recipes;
+      this.recipeService.searchByRange(this.searchText, this.searchText2).subscribe({
+        next: recipes => {
+          // Handle the success response
+          // TODO: Add code for handling success response
+          console.log("processing data");
+          console.log(recipes.length);
+          this.recipes = recipes;
           
-      //   },
-      //   error: error => {
-      //     // Handle the error response
-      //     // TODO: Add code for handling error response
-      //     this.toastr.error(error.error.message);
-      //     console.log(error.error.message);
-      //   }
-      // });
+        },
+        error: error => {
+          // Handle the error response
+          // TODO: Add code for handling error response
+          this.toastr.error(error.error.message);
+          console.log(error.error.message);
+        }
+      });
     }
 
     //

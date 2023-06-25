@@ -50,6 +50,12 @@ export class AuthServiceService {
     //console.log(parsedData.id)
   }
 
+  logout(): void {
+    localStorage.removeItem('user');
+    this.loggedIn = false;
+    sessionStorage.clear();
+  }
+
 
 
 }

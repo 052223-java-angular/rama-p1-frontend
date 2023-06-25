@@ -13,8 +13,10 @@ export class NavbarComponent {
 
   logout(): void {
     // Set isLoggedIn to false
-    this.authService.loggedIn = false;
-    //remove session objects
+    this.authService.logout();
+    //reload to take affect
+    //location.reload();
+
   }
 
   

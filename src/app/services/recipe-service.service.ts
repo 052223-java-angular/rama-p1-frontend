@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RecipePayload } from '../models/recipe-payload';
 import { Recipe } from '../models/recipe';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { CusinePayload } from '../models/cusine-payload';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { FavRecipe } from '../models/favRecipe';
+import { RecipeDetailsComponent } from '../pages/recipe-details/recipe-details.component';
 
 
 @Injectable({
@@ -38,6 +40,62 @@ export class RecipeServiceService {
     return this.http.get<any>(`${externalApi}`);
   }
 
+  getMyFavorites() {
+    const jsonData = this.authService.getSessionObj();
+    const parsedData = JSON.parse(jsonData);
+    let token:string = parsedData.token;
+    
+    let url = `${this.baseUrl}/favorite/myfav`;
+    console.log("url for fav " + url );
+    console.log("token is " + token);
+
+    const headers = new HttpHeaders().set('auth-token', `${token}`);
+
+    // Set the request options with the headers
+    const options = { headers };
+
+    // Make the POST request
+    return this.http.post<[FavRecipe]>(url, null, options);
+  }
+
+  addToFavorites(recipe_id:string): boolean {
+    const url:string = `${this.baseUrl}/favorite/create`;
+    let returnVal :boolean = true;
+
+    const jsonData = this.authService.getSessionObj();
+    const parsedData = JSON.parse(jsonData);
+
+    console.log(parsedData.token);
+    let token:string = parsedData.token;
+    
+    //create a payload and send it to client
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'auth-token': token
+      })
+    };
+    
+    // The payload to be sent to the backend API
+    const payload = {
+      "recipe_id": recipe_id 
+    };
+
+    this.http.post(url, payload, httpOptions).subscribe(
+      response => {
+        // Handle the response
+        returnVal = true;
+      
+      },
+      error => {
+        // Handle errors
+        console.log(error);
+        console.log("err");
+        returnVal = false;
+      }
+    );
+    return returnVal;
+  }
+
   // getReviewsByRid(id: string) {
   //   console.log("id in getReviewsbyRid " + id);
   //   //let test:string = 'http://localhost:8080/cookbook/api/review/byrid/2dbeaf3e96adcdcbcb3a4445ec9729d9';
@@ -51,39 +109,55 @@ export class RecipeServiceService {
     return this.http.get<any[]>(`${this.baseUrl}/recipe/bycusine/${cusine}`);
   }
 
-  // editReview( payload: { comments: string; rate: Number, recipe_id: string; }){
-  //   const url:string = `${this.baseUrl}/review/create`;
-  
-  //   const jsonData = this.authService.getSessionObj();
-  //   const parsedData = JSON.parse(jsonData);
+  removeFromFavorites(recipe_id:string):boolean {
 
-  //   console.log(parsedData.token);
-  //   let token:string = parsedData.token;
-  //   //create a payload and send it to client
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'auth-token': token
-  //     })
-  //   };
+    let returnVal:boolean = true;
+
+    const jsonData = this.authService.getSessionObj();
+    const parsedData = JSON.parse(jsonData);
+    let token:string = parsedData.token;
+
+    const url:string = `${this.baseUrl}/favorite/delete/${recipe_id}`;
+    
+    const headers = new HttpHeaders().set('auth-token', `${token}`);
+
+    // Set the request options with the headers
+    const options = { headers };
+
+    // Make the DELETE request
+    this.http.delete<any>(url, options).subscribe(
+        response => {
+          // Handle the success response
+          console.log('Data deleted successfully');
+          returnVal = true;
+       
+        },
+        error => {
+          // Handle the error response
+          console.error('Error deleting data:', error);
+          returnVal = false;
+          
+        }
+      );
+      return returnVal;
+  }
+
+  searchByRange(lowerRange:number, upperRange:number) {
+     // The payload to be sent to the backend API
+     const url:string = `${this.baseUrl}/recipe/calrange`;
+      // The payload to be sent to the backend API
+    console.log("lr " + lowerRange + " " + upperRange );
+    
+    const payload = {
+      "lowerRange": lowerRange,
+      "upperRange": upperRange
+    };
+
+    const headers = new HttpHeaders().set('Dummy-Header', 'dummy-value');
+     return this.http.post<Recipe[]>(url, payload, {headers});
+     
+
+  }
 
 
-  //   this.http.post(url, payload, httpOptions).subscribe(
-  //     response => {
-  //       // Handle the response
-  //     },
-  //     error => {
-  //       // Handle errors
-  //       console.log(error);
-  //       console.log("err");
-  //     }
-  //   );
-
-  //   //this.http.post<any>(`${this.baseUrl}/review/create`);
-  // }
-
-  
-
-  // searchByRange(payload: CusinePayload) :  Observable<Recipe>{
-  //   return this.http.post<Recipe>(`${this.baseUrl}/recipe/calrange`, payload );
-  // }
 }
