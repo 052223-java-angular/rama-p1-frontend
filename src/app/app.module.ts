@@ -20,6 +20,7 @@ import { RecipeDetailsComponent } from './pages/recipe-details/recipe-details.co
 import { SearchComponent } from './pages/search/search.component';
 import { SearchcusineComponent } from './components/searchcusine/searchcusine.component';
 import { MyfavoritesComponent } from './pages/myfavorites/myfavorites.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MyfavoritesComponent } from './pages/myfavorites/myfavorites.component'
     RecipeDetailsComponent,
     SearchComponent,
     SearchcusineComponent,
-    MyfavoritesComponent,   
+    MyfavoritesComponent,
+    ProfileComponent,   
   ],
 
   imports: [

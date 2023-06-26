@@ -9,6 +9,7 @@ import { RecipesComponent } from './pages/recipes/recipes.component';
 import { RecipeDetailsComponent } from './pages/recipe-details/recipe-details.component';
 import { SearchComponent } from './pages/search/search.component';
 import { MyfavoritesComponent } from './pages/myfavorites/myfavorites.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'recipe-details/:id', component: RecipeDetailsComponent }, // Route for the register page
   { path: 'myfavorites', component: MyfavoritesComponent }, // Route for the register page
   { path: 'search', component: SearchComponent }, // Route for the register page
+  { path: 'profile', component: ProfileComponent }, // Route for the register page
   { path: '**', component:NotFoundComponent } // Route for handling not-found pages
  ] 
 

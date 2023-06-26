@@ -5,16 +5,28 @@
             Username:
             <input class="bg-slate-300 px-5 py-2 rounded-md shadow-xl transition focus:ease-out focus:scale-110 duration-300" type="text" placeholder="Username" formControlName="username" />
         </label>
+
+        <ng-container *ngIf="registerForm.controls['username']?.errors">
+            <small class="text-red-800" *ngIf="registerForm.controls['username']?.touched"> Username can not be empty </small>
+        </ng-container>
     
         <label class="flex flex-col">
             Password:
             <input class="bg-slate-300 px-5 py-2 rounded-md shadow-xl transition focus:ease-out focus:scale-110 duration-300" type="password" placeholder="Password" formControlName="password" />
         </label>
+
+        <ng-container *ngIf="registerForm.controls['password']?.errors" >
+            <small class="text-red-800" *ngIf="registerForm.controls['password']?.touched"> Password  can not be empty </small>
+        </ng-container>
     
         <label class="flex flex-col">
              Confirm Password:
             <input class="bg-slate-300 px-5 py-2 rounded-md shadow-xl transition focus:ease-out focus:scale-110 duration-300" type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
         </label>
+
+        <ng-container  *ngIf="registerForm.controls['confirmPassword']?.errors">
+            <small class="text-red-800" *ngIf="registerForm.controls['confirmPassword']?.touched"> Confirm Password  can not be empty </small>
+        </ng-container>
     
         <button type="submit"  class="bg-slate-800 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration">Sign up</button>
         
