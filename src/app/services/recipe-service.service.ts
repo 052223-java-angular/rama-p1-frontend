@@ -7,13 +7,15 @@ import { CusinePayload } from '../models/cusine-payload';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { FavRecipe } from '../models/favRecipe';
 import { RecipeDetailsComponent } from '../pages/recipe-details/recipe-details.component';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeServiceService {
-  baseUrl = 'http://localhost:8080/cookbook/api';
+  //baseUrl = 'http://localhost:8080/cookbook/api';
+  baseUrl = environment.apiBaseUrl;
 
 
   constructor(private http: HttpClient,  private authService: AuthServiceService,) { }
@@ -23,7 +25,33 @@ export class RecipeServiceService {
   }
 
   getRecipes() {
-    return this.http.get<any[]>(`${this.baseUrl}/recipe/all`);
+    console.log("getting recipes");
+    const jsonData = this.authService.getSessionObj();
+    const parsedData = JSON.parse(jsonData);
+    let token:string = parsedData.token;
+    
+    let url = `${this.baseUrl}/favorite/myfav`;
+    // console.log("url for fav " + url );
+    console.log("token is " + token);
+
+    //const headers = new HttpHeaders().set('auth-token', `${token}`);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'auth-token': token
+      })
+    };
+
+    const payload = {
+      "comments": "test"
+    
+    };
+
+    // Set the request options with the headers
+    //const options = { headers };
+    //const headers = new HttpHeaders().set('Access-Control-Allow-Origin', 'http://rscookbookbucket.s3-website-us-west-1.amazonaws.com');
+    
+    return this.http.post<any[]>(`${this.baseUrl}/recipe/all`, payload, httpOptions);
+    //return this.http.get<any[]>(`${this.baseUrl}/recipe/all`, {headers} );
   }
 
   // getRecipesById(id: string) {
