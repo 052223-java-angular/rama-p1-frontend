@@ -4,12 +4,15 @@ import { RegisterPayload } from '../models/register-payload';
 import { LoginPayload } from '../models/login-payload';
 import { Auth } from '../models/auth';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-  baseUrl = 'http://localhost:8080/cookbook/api';
+  //baseUrl = 'http://localhost:8080/cookbook/api';
+  baseUrl = environment.apiBaseUrl;
+
   loggedIn: boolean = false;
 
   constructor(private http: HttpClient) {

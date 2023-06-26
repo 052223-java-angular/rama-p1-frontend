@@ -96,8 +96,8 @@ export class RecipeDetailsComponent implements OnInit{
    
      this.reviewService.editReview(payload);
      //this.router.navigate(['/recipes']);
-     location.reload();
-     //this.router.navigate(['/recipe-details', recipe_id]);
+     //location.reload();
+     this.router.navigate(['/recipe-details', recipe_id]);
      
   }
 
@@ -105,8 +105,8 @@ export class RecipeDetailsComponent implements OnInit{
     // Handle the delete functionality for the selected review
     console.log('Delete review:', review);
     this.reviewService.deleteReview(this.recipeId);
-    location.reload();
-    //this.router.navigate(['/recipe-details', this.recipeId]);
+    //location.reload();
+    this.router.navigate(['/recipe-details', this.recipeId]);
 
   }
 

@@ -14,7 +14,7 @@ export class NavbarComponent {
   logout(): void {
     // Set isLoggedIn to false
     this.authService.logout();
-    //reload to take affect
+    
     //location.reload();
 
   }

@@ -6,12 +6,14 @@ import {Review} from '../models/review';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { CusinePayload } from '../models/cusine-payload';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewServiceService {
-  baseUrl = 'http://localhost:8080/cookbook/api';
+  //baseUrl = 'http://localhost:8080/cookbook/api';
+  baseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient,  private authService: AuthServiceService,) { }
 

@@ -69,6 +69,7 @@ export class LoginComponent {
           this.authService.setSessionObj(value);
 
           const jsonData = this.authService.getSessionObj();
+          this.authService.setLoggedIn(true);
           
           //const parsedData = JSON.parse(jsonData);
           //console.log(parsedData.id)

@@ -35,6 +35,23 @@ export class RegisterComponent implements OnInit {
   submitForm(): void {
     if (this.registerForm.invalid) {
       console.log('This form is invalid');
+
+      const username = this.registerForm.controls['username'].value;
+      if(username.length === 0){
+        this.registerForm.controls['username'].markAsTouched;
+      }
+
+      const password = this.registerForm.controls['password'].value;
+      if(password.length === 0){
+        this.registerForm.controls['password'].markAsTouched;
+      }
+
+      const confirmPassword = this.registerForm.controls['confirmPassword'].value;
+      if(confirmPassword.length === 0){
+        this.registerForm.controls['confirmPassword'].markAsTouched;
+      }
+      this.registerForm.reset();
+
       return;
     }
     console.log(this.registerForm.value);
